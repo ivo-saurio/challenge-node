@@ -6,6 +6,7 @@ const logger = require('morgan');
 const session = require('express-session');
 const methodOverride = require('method-override');
 
+
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -21,6 +22,7 @@ const upload = multer({ storage: storage })
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const apiRouter = require('./routes/api/api') 
 
 const app = express();
 
@@ -43,6 +45,7 @@ app.use(methodOverride('_method'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
