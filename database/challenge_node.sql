@@ -23,16 +23,17 @@ DROP TABLE IF EXISTS `character_movie`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `character_movie` (
-  `id` int(11) NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `character_id` int(10) NOT NULL,
-  `movie_id` int(10) NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `character_id` int(10) unsigned NOT NULL,
+  `movie_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `character_movie_idx` (`character_id`),
-  KEY `character_movies_idx` (`movie_id`),
-  CONSTRAINT `character_movie` FOREIGN KEY (`character_id`) REFERENCES `characters` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `character_movies` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_character_movie_id_idx` (`character_id`),
+  KEY `fk_movie_character_id_idx` (`movie_id`),
+  CONSTRAINT `fk_character_movie_id` FOREIGN KEY (`character_id`) REFERENCES `characters` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_movie_character_id` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -53,16 +54,17 @@ DROP TABLE IF EXISTS `character_serie`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `character_serie` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `characterserie_id` int(10) NOT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `character_id` int(10) unsigned NOT NULL,
   `serie_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `character_serie_idx` (`serie_id`),
-  KEY `character_series_idx` (`characterserie_id`),
-  CONSTRAINT `character_serie` FOREIGN KEY (`serie_id`) REFERENCES `series` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `character_series` FOREIGN KEY (`characterserie_id`) REFERENCES `characters` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `characterserie_id_idx` (`character_id`),
+  KEY `fk_serie_character_id_idx` (`serie_id`),
+  CONSTRAINT `fk_characters_serie_id` FOREIGN KEY (`character_id`) REFERENCES `characters` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_serie_character_id` FOREIGN KEY (`serie_id`) REFERENCES `series` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -83,15 +85,21 @@ DROP TABLE IF EXISTS `characters`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `characters` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `age` int(11) NOT NULL,
+  `age` int(10) NOT NULL,
+  `image` varchar(200) NOT NULL,
   `history` varchar(500) NOT NULL,
-  `movies_id` int(11) DEFAULT NULL,
-  `series_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `update_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `series_id` int(11) unsigned DEFAULT NULL,
+  `movies_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `serie_idx` (`series_id`),
+  KEY `fk_movie_id_idx` (`movies_id`),
+  CONSTRAINT `fk_movie_id` FOREIGN KEY (`movies_id`) REFERENCES `movies` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_serie_id` FOREIGN KEY (`series_id`) REFERENCES `series` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -112,10 +120,11 @@ DROP TABLE IF EXISTS `genres`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `genres` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` varchar(45) DEFAULT NULL,
+  `id` int(10) unsigned NOT NULL,
   `name` varchar(45) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -137,15 +146,20 @@ DROP TABLE IF EXISTS `movies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `movies` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(45) NOT NULL,
   `image` varchar(200) NOT NULL,
-  `rating` float DEFAULT NULL,
-  `genre_id` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `character_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `rating` decimal(3,1) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `character_id` int(10) unsigned DEFAULT NULL,
+  `genre_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_character_id_idx` (`character_id`),
+  KEY `fk_genre_id_idx` (`genre_id`),
+  CONSTRAINT `fk_character_id` FOREIGN KEY (`character_id`) REFERENCES `characters` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_genre_id` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -166,16 +180,20 @@ DROP TABLE IF EXISTS `series`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `series` (
-  `id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `title` varchar(100) NOT NULL,
   `release_date` datetime NOT NULL,
   `end_date` datetime NOT NULL,
   `genre_id` int(10) unsigned DEFAULT NULL,
+  `character_id` int(10) unsigned DEFAULT NULL,
+  `image` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `genres_idx` (`genre_id`),
-  CONSTRAINT `genres` FOREIGN KEY (`genre_id`) REFERENCES `series` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `character_series_idx` (`character_id`),
+  KEY `fk_genre_serie_id_idx` (`genre_id`),
+  CONSTRAINT `fk_character_serie_id` FOREIGN KEY (`character_id`) REFERENCES `characters` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_genre_serie_id` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -196,9 +214,9 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(45) NOT NULL,
-  `username` varchar(45) NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(45) NOT NULL,
+  `last_name` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `password` varchar(200) NOT NULL,
   `created_ad` timestamp NULL DEFAULT NULL,
@@ -225,4 +243,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-19 11:34:59
+-- Dump completed on 2021-04-20 16:44:54
