@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+    
+    <div class="maincreatemovie">
+
+        <div class="create-form" >
+
+            <h2> Agragar una pelicula </h2>
+
+            <form id="formCreate" action="" method="" enctype="multipart/form-data">
+            
+                <div class="title">
+
+                    <label for="title">Agregar Titulo</label>
+                    <input type="title" placeholder="Titulo de la Pelicula" title="title" id="title"> 
+                    
+                </div>
+
+                <div class="image">
+
+                    <label for="image">Agregar Imagen</label>
+                    <input type="image" placeholder="Imagen de la pelicula" image="image" id="image"> 
+                    
+                </div>
+
+                <div class="rating">
+
+                    <label for="rating">Agregar ratingn</label>
+                    <input type="rating" placeholder="ratingn de la pelicula" rating="rating" id="rating"> 
+                    
+                </div>
+
+
+            </div>
+                <div class="buttonCreate">
+                    
+                <button id="botonCreate" class="btn" type="submit">Agregar
+
+                </button>
+
+            </div>
+            
+            
+            </form>
+
+        </div>
+
+    </div>
+
+  </body>
+</html>

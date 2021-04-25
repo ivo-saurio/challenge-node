@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+    
+    <div class="mainedit">
+
+      <h2> Editar Personaje </h2>
+
+      <form action="" id="editcharacter" method="POST" enctype="multipart/form-data" >
+      
+        <div class="name">
+
+          <label for="name">Editar Nombre</label>
+          <input type="name" placeholder="Nombre del Producto" name="name" id="name"> 
+          
+      </div>
+
+      <div class="age">
+
+          <label for="age">Editar Nombre</label>
+          <input type="age" placeholder="Nombre del personaje" age="age" id="age"> 
+          
+      </div>
+
+      <div class="image">
+
+          <label for="image">Editar Imagen</label>
+          <input type="image" placeholder="Imagen del personaje" image="image" id="image"> 
+          
+      </div>
+
+      <div class="history">
+
+          <label for="image">Editar Imagen</label>
+          <input type="image" placeholder="Imagen del personaje" image="image" id="image"> 
+          
+      </div>
+
+
+  </div>
+      <div class="buttonEdit">
+                
+       <button class="btn" type="submit">Editar</button>
+       
+          </form>
+
+          <form action="" method="POST">
+
+              <button class="btn" type="submit">Eliminar</button>
+
+      </div>
+      
+      
+      </form>
+
+    </div>
+
+  </body>
+</html>

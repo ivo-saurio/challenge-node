@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+    
+    <div class="mainedit">
+
+      <h2> Editar Pelicula </h2>
+
+      <form action="" id="editcharacter" method="POST" enctype="multipart/form-data" >
+      
+        <div class="title">
+
+            <label for="title">Editar Titulo</label>
+            <input type="title" placeholder="Titulo de la Pelicula" title="title" id="title"> 
+            
+        </div>
+
+        <div class="image">
+
+            <label for="image">Editar Imagen</label>
+            <input type="image" placeholder="Imagen de la pelicula" image="image" id="image"> 
+            
+        </div>
+
+        <div class="rating">
+
+            <label for="rating">Editar ratingn</label>
+            <input type="rating" placeholder="ratingn de la pelicula" rating="rating" id="rating"> 
+            
+        </div>
+
+
+  </div>
+      <div class="buttonEdit">
+                
+       <button class="btn" type="submit">Editar</button>
+       
+          </form>
+
+          <form action="" method="POST">
+
+              <button class="btn" type="submit">Eliminar</button>
+
+      </div>
+      
+      
+      </form>
+
+    </div>
+
+  </body>
+</html>

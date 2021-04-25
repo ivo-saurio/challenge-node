@@ -3,11 +3,10 @@ module.exports = function(sequelize, dataTypes){
     let cols = {
 
         id: {
-            type: dataTypes.INTEGER,
+            type: dataTypes.INTEGER.UNSIGNED,
             notNull: true,
             primaryKey: true,
             autoIncrement: true,
-            unsigned: true
         },
         name: {
             type: dataTypes.STRING,
@@ -27,26 +26,19 @@ module.exports = function(sequelize, dataTypes){
             type: dataTypes.STRING,
             notNull: true
         },
-        movies_id: {
-            type: dataTypes.INTEGER,
-            notNull: false,
-            unsigned: true
-        },
 
-        series_id: {
-            type: dataTypes.INTEGER,
-            notNull: false,
-            unsigned: true
-        },
         created_at: {
             type: dataTypes.DATE
         },
+
         updated_at: {
             type: dataTypes.DATE
         },
+
         deleted_at: {
             type: dataTypes.DATE
         },
+        
 
         }
 
@@ -60,18 +52,30 @@ module.exports = function(sequelize, dataTypes){
 
         const Character = sequelize.define(alias, cols, config);
 
-            Character.associate= function(models) {
-                Character.hasMany(models.Movies, {
-                as: 'movie',
-                foreignKey: 'fk_movie_id'
-         })
-     
-                Character.hasMany(models.Series, {
-                as: 'serie',
-                foreignKey: 'fk_serie_id'
- })
-}
-    return Character;
+
+        Character.associate = function(models){
+
+            Character.belongsToMany(models.Movies, {
+                as: "movies_characters",
+                through: "character_movie",
+                foreignKey: "character_id",
+                otherKey: "movie_id",
+                timestamps: true
+            })
+
+            Character.belongsToMany(models.Series, {
+                as: "series_characters",
+                through: "character_serie",
+                foreignKey: "serie_id",
+                otherKey: "character_id",
+                timestamps: true
+            })
+
+        }
+
+
+
+            return Character;
         }
 
         

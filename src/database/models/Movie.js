@@ -3,11 +3,10 @@ module.exports = function(sequelize, dataTypes){
     let cols = {
 
         id: {
-            type: dataTypes.INTEGER,
+            type: dataTypes.INTEGER.UNSIGNED,
             notNull: true,
             primaryKey: true,
             autoIncrement: true,
-            unsigned: true
         },
         
         title: {
@@ -45,12 +44,6 @@ module.exports = function(sequelize, dataTypes){
             notNull: false,
             unsigned: true
         },
-
-        character_id: {
-            type: dataTypes.INTEGER,
-            notNull: false,
-            unsigned: true
-        },
         
 
         }
@@ -65,18 +58,20 @@ module.exports = function(sequelize, dataTypes){
 
         const Movie = sequelize.define(alias, cols, config);
 
-            Movie.associate= function(models) {
-                Movie.hasMany(models.Characters, {
-                as: 'character',
-                foreignKey: 'fk_character_id'
-         })
-     
-                Movie.belongsTo(models.Genres, {
-                as: 'genre',
-                foreignKey: 'fk_genre_id'
- })
-}
+Movie.associate = function(models) {
+    Movie.belongsToMany(models.Characters, {
+        as: "characters_movies",
+        through:"character_movie",
+        foreignKey: "movie_id",
+        otherKey: "character_id",
+        timestamps: true
+})
 
+    Movie.belongsTo(models.Genres, {
+        as: 'genremovie',
+        foreignKey: 'genre_id'
+    })
+}
     return Movie;
         }
 

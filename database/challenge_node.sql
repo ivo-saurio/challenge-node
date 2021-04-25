@@ -30,10 +30,10 @@ CREATE TABLE `character_movie` (
   `character_id` int(10) unsigned NOT NULL,
   `movie_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_character_movie_id_idx` (`character_id`),
-  KEY `fk_movie_character_id_idx` (`movie_id`),
-  CONSTRAINT `fk_character_movie_id` FOREIGN KEY (`character_id`) REFERENCES `characters` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_movie_character_id` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_movies_id_idx` (`movie_id`),
+  KEY `fk_character_id_idx` (`character_id`),
+  CONSTRAINT `fk_character_id` FOREIGN KEY (`character_id`) REFERENCES `characters` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_movies_id` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -61,10 +61,10 @@ CREATE TABLE `character_serie` (
   `character_id` int(10) unsigned NOT NULL,
   `serie_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `characterserie_id_idx` (`character_id`),
-  KEY `fk_serie_character_id_idx` (`serie_id`),
-  CONSTRAINT `fk_characters_serie_id` FOREIGN KEY (`character_id`) REFERENCES `characters` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_serie_character_id` FOREIGN KEY (`serie_id`) REFERENCES `series` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_characters_id_idx` (`character_id`),
+  KEY `fk_series_id_idx` (`serie_id`),
+  CONSTRAINT `fk_characters_id` FOREIGN KEY (`character_id`) REFERENCES `characters` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_series_id` FOREIGN KEY (`serie_id`) REFERENCES `series` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -93,13 +93,7 @@ CREATE TABLE `characters` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `series_id` int(11) unsigned DEFAULT NULL,
-  `movies_id` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `serie_idx` (`series_id`),
-  KEY `fk_movie_id_idx` (`movies_id`),
-  CONSTRAINT `fk_movie_id` FOREIGN KEY (`movies_id`) REFERENCES `movies` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_serie_id` FOREIGN KEY (`series_id`) REFERENCES `series` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -153,13 +147,10 @@ CREATE TABLE `movies` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `character_id` int(10) unsigned DEFAULT NULL,
   `genre_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_character_id_idx` (`character_id`),
-  KEY `fk_genre_id_idx` (`genre_id`),
-  CONSTRAINT `fk_character_id` FOREIGN KEY (`character_id`) REFERENCES `characters` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_genre_id` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_moviesgenre_id_idx` (`genre_id`),
+  CONSTRAINT `fk_moviesgenre_id` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -186,14 +177,12 @@ CREATE TABLE `series` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `release_date` datetime NOT NULL,
   `end_date` datetime NOT NULL,
-  `genre_id` int(10) unsigned DEFAULT NULL,
-  `character_id` int(10) unsigned DEFAULT NULL,
   `image` varchar(200) NOT NULL,
+  `genre_id` int(10) unsigned DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `character_series_idx` (`character_id`),
-  KEY `fk_genre_serie_id_idx` (`genre_id`),
-  CONSTRAINT `fk_character_serie_id` FOREIGN KEY (`character_id`) REFERENCES `characters` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_genre_serie_id` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_seriesgenre_id_idx` (`genre_id`),
+  CONSTRAINT `fk_seriesgenre_id` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -219,10 +208,10 @@ CREATE TABLE `users` (
   `last_name` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `password` varchar(200) NOT NULL,
-  `created_ad` timestamp NULL DEFAULT NULL,
-  `updated_ad` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -231,6 +220,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Camilo','Rojas','rojas@gmail.com','123456789',NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -243,4 +233,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-20 16:44:54
+-- Dump completed on 2021-04-23 19:41:10

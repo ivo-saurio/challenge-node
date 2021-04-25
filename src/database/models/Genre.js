@@ -3,10 +3,10 @@ module.exports = function(sequelize, dataTypes){
     let cols = {
 
         id: {
-            type: dataTypes.INTEGER,
+            type: dataTypes.INTEGER.UNSIGNED,
             notNull: true,
             primaryKey: true,
-            unsigned: true
+            autoIncrement: true
         },
         name: {
             type: dataTypes.STRING,
@@ -21,7 +21,7 @@ module.exports = function(sequelize, dataTypes){
             type: dataTypes.DATE
         },
 
-        deleted_id: {
+        deleted_at: {
             type: dataTypes.DATE
         }
 
@@ -37,12 +37,6 @@ module.exports = function(sequelize, dataTypes){
 
         const Genre = sequelize.define(alias, cols, config);
 
-            Genre.associate= function(models) {
-                Genre.hasMany(models.Characters, {
-                    as: 'characterGenres',
-                    foreignKey: 'genre_id'
-         })
-     }
 
     return Genre;
         }

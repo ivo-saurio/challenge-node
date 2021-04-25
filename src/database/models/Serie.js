@@ -3,11 +3,10 @@ module.exports = function(sequelize, dataTypes){
     let cols = {
 
         id: {
-            type: dataTypes.INTEGER,
+            type: dataTypes.INTEGER.UNSIGNED,
             notNull: true,
             primaryKey: true,
             autoIncrement: true,
-            unsigned: true
         },
         
         title: {
@@ -48,13 +47,6 @@ module.exports = function(sequelize, dataTypes){
             unsigned: true
         },
 
-        character_id: {
-            type: dataTypes.INTEGER,
-            notNull: false,
-            unsigned: true
-        },
-        
-
         }
 
         let config = {
@@ -67,16 +59,19 @@ module.exports = function(sequelize, dataTypes){
 
         const Serie = sequelize.define(alias, cols, config);
 
-        Serie.associate= function(models) {
-            Serie.hasMany(models.Characters, {
-            as: 'character',
-            foreignKey: 'fk_character_serie_id'
+            Serie.associate= function(models) {
+                
+                Serie.belongsTo(models.Genres, {
+                    as: 'seriesgenre',
+                    foreignKey: 'genre_id'
      })
- 
-        Serie.belongsTo(models.Genres, {
-            as: 'genre',
-            foreignKey: 'fk_genre_serie_id'
-})
+                Serie.belongsToMany(models.Characters, {
+                    as: "characters_series",
+                    through:"character_serie",
+                    foreignKey: "serie_id",
+                    otherKey: "character_id",
+                    timestamps: true
+                })
 }
 
     return Serie;
