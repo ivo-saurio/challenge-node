@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+   <button><a href="/movies/create">Agregar pelicula</a></button>
+
+   <% for(let i = 0; i < movies.length; i++) {%>
+    <div class="moviesContainer">
+
+      <div>
+
+        <img src="/image/movies/<%= movies[i].image %>" style="max-width: 300px;" alt="">
+
+      </div>
+
+      <div>
+
+        <h2> <%= movies[i].title %> </h2>
+
+      </div>
+        
+      <button> <a href="/movies/<%= movies[i].id %> ">Detalle</a> </button>
+
+    </div>
+    <% } %>
+  </body>
+</html>

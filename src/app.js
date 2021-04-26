@@ -22,7 +22,11 @@ const upload = multer({ storage: storage })
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const apiRouter = require('./routes/api/api') 
+const apiRouter = require('./routes/api/api');
+const characterRouter = require('./routes/characters');
+const moviesRouter = require('./routes/movies');
+const seriesRouter = require('./routes/serie');
+const authMiddleware = require('./middlewares/authMiddleware')
 
 const app = express();
 
@@ -42,10 +46,13 @@ app.use(session({
 }));
 app.use(methodOverride('_method'));
 
-
+//app.use(authMiddleware);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api', apiRouter);
+app.use('/characters', characterRouter);
+app.use('/movies', moviesRouter);
+app.use('/series', seriesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

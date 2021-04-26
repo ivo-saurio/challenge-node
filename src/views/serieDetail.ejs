@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+    <h1>Detalle serie</h1>
+
+    <div class="serieContainer">
+
+      <div>
+
+        <img src="/image/series/<%= serie.image %>" style="max-width: 300px;" alt="">
+
+      </div>
+
+      <div>
+
+        <h2> <%= serie.title %> </h2>
+        <p><%= serie.history %></p>
+        <p>Fecha de estreno: <%= serie.release_date %></p>
+        <p>Rating: <%= serie.rating %></p> 
+        <p>Actores: </p>
+      </div>
+        
+
+    </div>
+
+  </body>
+</html>

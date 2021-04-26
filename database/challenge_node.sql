@@ -34,7 +34,7 @@ CREATE TABLE `character_movie` (
   KEY `fk_character_id_idx` (`character_id`),
   CONSTRAINT `fk_character_id` FOREIGN KEY (`character_id`) REFERENCES `characters` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_movies_id` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `character_serie` (
   KEY `fk_series_id_idx` (`serie_id`),
   CONSTRAINT `fk_characters_id` FOREIGN KEY (`character_id`) REFERENCES `characters` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_series_id` FOREIGN KEY (`serie_id`) REFERENCES `series` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,13 +88,13 @@ CREATE TABLE `characters` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `age` int(10) NOT NULL,
-  `image` varchar(200) NOT NULL,
+  `image` varchar(500) NOT NULL,
   `history` varchar(500) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,6 +103,7 @@ CREATE TABLE `characters` (
 
 LOCK TABLES `characters` WRITE;
 /*!40000 ALTER TABLE `characters` DISABLE KEYS */;
+INSERT INTO `characters` VALUES (2,'Hannah Montana',0,'undefined-1619404034846.jfif','Miley Cyrus como Miley Stewart / Hannah Montana, es una adolescente originaria de Tennessee que vive una doble vida secreta con su alter ego Hannah Montana, una famosa estrella del pop, teniendo lo mejor de dos mundos. ... Lilly es la primera en conocer el secreto de Miley.','2021-04-26 02:27:14','2021-04-26 02:27:14',NULL);
 /*!40000 ALTER TABLE `characters` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,6 +130,7 @@ CREATE TABLE `genres` (
 
 LOCK TABLES `genres` WRITE;
 /*!40000 ALTER TABLE `genres` DISABLE KEYS */;
+INSERT INTO `genres` VALUES (1,'Comedia',NULL,NULL,NULL),(2,'Aventura',NULL,NULL,NULL),(3,'Infantil',NULL,NULL,NULL),(4,'Musical',NULL,NULL,NULL),(5,'Drama',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `genres` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,10 +150,12 @@ CREATE TABLE `movies` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `genre_id` int(10) unsigned DEFAULT NULL,
+  `release_date` date NOT NULL,
+  `history` varchar(500) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_moviesgenre_id_idx` (`genre_id`),
   CONSTRAINT `fk_moviesgenre_id` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,6 +164,7 @@ CREATE TABLE `movies` (
 
 LOCK TABLES `movies` WRITE;
 /*!40000 ALTER TABLE `movies` DISABLE KEYS */;
+INSERT INTO `movies` VALUES (2,'Cars','undefined-1619401604865.jpg',5.0,'2021-04-26 01:46:44','2021-04-26 01:46:44',NULL,1,'2006-06-22','');
 /*!40000 ALTER TABLE `movies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,10 +185,12 @@ CREATE TABLE `series` (
   `image` varchar(200) NOT NULL,
   `genre_id` int(10) unsigned DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
+  `history` varchar(500) NOT NULL,
+  `rating` decimal(3,1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_seriesgenre_id_idx` (`genre_id`),
   CONSTRAINT `fk_seriesgenre_id` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -192,6 +199,7 @@ CREATE TABLE `series` (
 
 LOCK TABLES `series` WRITE;
 /*!40000 ALTER TABLE `series` DISABLE KEYS */;
+INSERT INTO `series` VALUES (2,'Hannah Montana','2021-04-26 02:03:14','2021-04-26 02:03:14','2006-05-04 00:00:00','0000-00-00 00:00:00','undefined-1619402594708.jpg',1,NULL,'Miley Cyrus como Miley Stewart / Hannah Montana, es una adolescente originaria de Tennessee que vive una doble vida secreta con su alter ego Hannah Montana, una famosa estrella del pop, teniendo lo mejor de dos mundos. ... Lilly es la primera en conocer el secreto de Miley.',5.0);
 /*!40000 ALTER TABLE `series` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,7 +219,7 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -220,7 +228,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Camilo','Rojas','rojas@gmail.com','123456789',NULL,NULL);
+INSERT INTO `users` VALUES (2,'Camilo','Rojas','ivo@gmail.com','$2b$12$sO//gkdcEwlYgUpkqRgWEuUCfQDQRMHPhmj49ThsXxAmE5oqSvsB6','2021-04-25 17:03:28','2021-04-25 17:03:28');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -233,4 +241,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-23 19:41:10
+-- Dump completed on 2021-04-25 21:58:28

@@ -10,34 +10,67 @@
 
             <h2> Agragar una serie </h2>
 
-            <form id="formCreate" action="" method="" enctype="multipart/form-data">
+            <form id="formCreate" action="" method="POST" enctype="multipart/form-data">
             
                 <div class="title">
 
-                    <label for="title">Agregar Nombre</label>
-                    <input type="title" placeholder="Nombre de la serie" title="title" id="title">
+                    <label for="title">Agregar Titulo</label>
+                    <input type="text" placeholder="Titulo de la serie" name="title" id="title"> 
+                    
+                </div>
+
+                <div class="history">
+
+                    <label for="history">Agregar Sinopsis</label>
+                    <textarea name="history" id="history" cols="30" rows="5" maxlength="500" minlength="20"  ></textarea> 
                     
                 </div>
 
                 <div class="image">
 
                     <label for="image">Agregar Imagen</label>
-                    <input type="image" placeholder="Imagen de la serie" image="image" id="image"> 
+                    <input type="file" placeholder="Imagen de la serie" name="image" id="image"> 
                     
                 </div>
 
+                <div class="release_date">
+
+                    <label for="release_date">Fecha de estreno</label>
+                    <input type="date" placeholder="Fecha de estreno" name="release_date" id="release_date"> 
+                    
+                </div>
+
+                <div class="rating">
+
+                    <label for="">Agregar ratingn</label>
+                    <input type="number" min="1" max="5" placeholder="ratingn de la serie" name="rating" id="rating"> 
+                    
+                </div>
+
+                <div class="genre">
+
+                    <select name="genre_id" id="genre_id">
+                        <option selected>-- Seleccione un genero --</option>
+                        <% for(let i=0; i < genres.length; i++) { %>
+                            <option value="<%=genres[i].id%>"><%=genres[i].name%></option>
+                        <% } %> 
+
+                    </select>
+                    
+                </div>
+
+
+            </div>
+                <div class="buttonCreate">
+                    
+                <button id="botonCreate" class="btn" type="submit">Agregar
+
+                </button>
+
+            </div>
             
-
-            <div class="buttonCreate">
-                
-            <button id="botonCreate" class="btn" type="submit">Agregar
-
-            </button>
-
-        </div>
             
             </form>
-
         </div>
 
     </div>

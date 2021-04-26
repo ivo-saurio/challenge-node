@@ -1,4 +1,34 @@
 <header>
-    <link rel='stylesheet' href='../../../public/stylesheets/style.css' />
-    <h1> Welcome to Disney </h1>
+    <link rel='stylesheet' href='./stylesheets/style.css' />
+    <h1> <a href="/">Welcome to Disney</a></h1>
+
+    <nav>
+        <ul>
+
+            <li>
+                <a href="/characters/list">Personajes</a>
+            </li>
+
+            <li>
+                <a href="/movies/list">Peliculas</a>
+            </li>
+
+            <li>
+                <a href="/series/list">Series</a>
+            </li>
+
+            <li>
+                <% if (locals.user) {%>
+                    <h2><%= user.name %> </h2>
+                    <form action="/users/logOut" class="form-cerrar">
+                        <input class="buttons-cerrar" type="submit" value="Cerrar Sesion">
+                    </form> 
+                
+                <% } else{ %>
+                    <a href="/users/login">Login</a>
+                    <% } %> 
+            </li>
+
+        </ul>
+    </nav>
 </header>

@@ -10,33 +10,33 @@
 
             <h2> Agragar un personaje </h2>
 
-            <form id="formCreate" action="" method="" enctype="multipart/form-data">
+            <form id="formCreate" action="" method="POST" enctype="multipart/form-data">
             
                 <div class="name">
 
                     <label for="name">Agregar Nombre</label>
-                    <input type="name" placeholder="Nombre del Producto" name="name" id="name"> 
+                    <input type="text" placeholder="Nombre del personaje" name="name" id="name"> 
                     
                 </div>
 
                 <div class="age">
 
-                    <label for="age">Agregar Nombre</label>
-                    <input type="age" placeholder="Nombre del personaje" age="age" id="age"> 
+                    <label for="age">Agregar edad</label>
+                    <input type="number" placeholder="Edad del personaje" age="age" id="age"> 
                     
                 </div>
 
                 <div class="image">
 
                     <label for="image">Agregar Imagen</label>
-                    <input type="image" placeholder="Imagen del personaje" image="image" id="image"> 
+                    <input type="file" placeholder="Imagen del personaje" name="image" id="image">
                     
                 </div>
 
                 <div class="history">
 
-                    <label for="image">Agregar Imagen</label>
-                    <input type="image" placeholder="Imagen del personaje" image="image" id="image"> 
+                    <label for="history">Agregar Historia</label>
+                    <textarea name="history" id="history" cols="30" rows="5" maxlength="500" minlength="20"  ></textarea>
                     
                 </div>
 

@@ -10,26 +10,52 @@
 
             <h2> Agragar una pelicula </h2>
 
-            <form id="formCreate" action="" method="" enctype="multipart/form-data">
+            <form id="formCreate" action="" method="POST" enctype="multipart/form-data">
             
                 <div class="title">
 
                     <label for="title">Agregar Titulo</label>
-                    <input type="title" placeholder="Titulo de la Pelicula" title="title" id="title"> 
+                    <input type="text" placeholder="Titulo de la Pelicula" name="title" id="title"> 
+                    
+                </div>
+
+                <div class="history">
+
+                    <label for="history">Agregar Sinopsis</label>
+                    <textarea name="history" id="history" cols="30" rows="5" maxlength="500" minlength="20"  ></textarea> 
                     
                 </div>
 
                 <div class="image">
 
                     <label for="image">Agregar Imagen</label>
-                    <input type="image" placeholder="Imagen de la pelicula" image="image" id="image"> 
+                    <input type="file" placeholder="Imagen de la pelicula" name="image" id="image"> 
+                    
+                </div>
+
+                <div class="release_date">
+
+                    <label for="release_date">Fecha de estreno</label>
+                    <input type="date" placeholder="Fecha de estreno" name="release_date" id="release_date"> 
                     
                 </div>
 
                 <div class="rating">
 
-                    <label for="rating">Agregar ratingn</label>
-                    <input type="rating" placeholder="ratingn de la pelicula" rating="rating" id="rating"> 
+                    <label for="">Agregar ratingn</label>
+                    <input type="number" min="1" max="5" placeholder="ratingn de la pelicula" name="rating" id="rating"> 
+                    
+                </div>
+
+                <div class="genre">
+
+                    <select name="genre_id" id="genre_id">
+                        <option selected>-- Seleccione un genero --</option>
+                        <% for(let i=0; i < genres.length; i++) { %>
+                            <option value="<%=genres[i].id%>"><%=genres[i].name%></option>
+                        <% } %> 
+
+                    </select>
                     
                 </div>
 

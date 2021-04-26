@@ -25,6 +25,16 @@ module.exports = function(sequelize, dataTypes){
             notNull: true
         },
 
+        history: {
+            type:dataTypes.STRING,
+            notNull: true
+        },
+
+        rating: {
+            type:dataTypes.FLOAT,
+            notNull: true
+        },
+
         created_at: {
             type: dataTypes.DATE
         },

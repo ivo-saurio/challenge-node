@@ -26,6 +26,11 @@ module.exports = function(sequelize, dataTypes){
             unsigned: true
             
         },
+
+        history: {
+            type: dataTypes.STRING,
+            notNull: true
+        },
         
         created_at: {
             type: dataTypes.DATE
@@ -37,6 +42,11 @@ module.exports = function(sequelize, dataTypes){
         
         deleted_at: {
             type: dataTypes.DATE
+        },
+
+        release_date : {
+            type: dataTypes.DATE,
+            notNull: true
         },
 
         genre_id: {

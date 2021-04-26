@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+   <button><a href="/series/create">Agregar serie</a></button>
+
+   <% for(let i = 0; i < series.length; i++) {%>
+    <div class="serieContainer">
+
+      <div>
+
+        <img src="/image/series/<%= series[i].image %>" style="max-width: 300px;" alt="">
+
+      </div>
+
+      <div>
+
+        <h2> <%= series[i].title %> </h2>
+
+      </div>
+        
+      <button> <a href="/series/<%= series[i].id %> ">Detalle</a> </button>
+
+    </div>
+    <% } %>
+
+  </body>
+</html>

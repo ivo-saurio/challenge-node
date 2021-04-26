@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+   <button><a href="/characters/create">Agregar personaje</a></button>
+   <% for(let i = 0; i < characters.length; i++) {%>
+    <div class="characterContainer">
+
+      <div>
+
+        <img src="/image/characters/<%= characters[i].image %>" style="max-width: 300px;" alt="">
+
+      </div>
+
+      <div>
+
+        <h2> <%= characters[i].name %> </h2>
+
+      </div>
+        
+      <button> <a href="/characters/<%= characters[i].id %> ">Detalle</a> </button>
+
+    </div>
+    <% } %>
+
+
+
+  </body>
+</html>

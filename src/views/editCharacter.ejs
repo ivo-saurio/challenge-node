@@ -13,28 +13,28 @@
         <div class="name">
 
           <label for="name">Editar Nombre</label>
-          <input type="name" placeholder="Nombre del Producto" name="name" id="name"> 
+          <input type="name" placeholder=<%= character.name %>  name="name" id="name"> 
           
       </div>
 
       <div class="age">
 
-          <label for="age">Editar Nombre</label>
-          <input type="age" placeholder="Nombre del personaje" age="age" id="age"> 
+          <label for="age">Editar Edad</label>
+          <input type="number" placeholder=<%= character.age %> age="age" id="age"> 
           
       </div>
 
       <div class="image">
 
           <label for="image">Editar Imagen</label>
-          <input type="image" placeholder="Imagen del personaje" image="image" id="image"> 
+          <input type="file" value="<%= character.image %>" image="image" id="image"> 
           
       </div>
 
       <div class="history">
 
-          <label for="image">Editar Imagen</label>
-          <input type="image" placeholder="Imagen del personaje" image="image" id="image"> 
+          <label for="image">Editar sinopsis</label>
+          <textarea name="history" id="history" cols="30" rows="5" maxlength="500" minlength="20"  ><%= character.history %></textarea> 
           
       </div>
 
