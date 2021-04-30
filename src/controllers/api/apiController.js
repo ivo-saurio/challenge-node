@@ -7,7 +7,7 @@ module.exports = {
     .then(function(results){
       return  res.send(JSON.stringify(results))
     })
-},
+    },
 
     usersDetail: function(req,res){
         db.Users.findOne({

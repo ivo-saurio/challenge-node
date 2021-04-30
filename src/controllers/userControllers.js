@@ -1,6 +1,9 @@
 const bcrypt = require('bcrypt');
 const db = require('../database/models');
 const {validationResult} = require('express-validator');
+const Sequelize = require("sequelize");
+
+let op = Sequelize.Op;
 
 module.exports = {
     
@@ -79,4 +82,64 @@ module.exports = {
         }       
                
         },
+
+        search: function(req, res){
+          db.Characters.findAll({
+            where: {
+              [op.or]: [
+                { name: { [op.like]: `%${req.query.search}%` } },
+                { history: { [op.like]: `%${req.query.search}%` } },
+              ],
+            }
+            })    
+              .then((character) => {
+                    db.Movies.findAll({
+                      include: [
+                        {model: db.Genres, as: 'genremovie'}
+                          ],
+                      where: {
+                        [op.or]: [
+                          { title: { [op.like]: `%${req.query.search}%` } },
+                          { genre_id: { [op.like]: `%${req.query.search}%` } },
+                        ],
+                      }
+                    })
+                        .then((movie) => {
+                          db.Series.findAll({
+                            include: [
+                              {model: db.Genres, as: 'seriesgenre'}
+                                ],
+                            where: {
+                              [op.or]: [
+                                { title: { [op.like]: `%${req.query.search}%` } },
+                                { genre_id: { [op.like]: `%${req.query.search}%` } },
+                              ],
+                            }
+                          })
+                              .then(function(serie){
+                                res.render("search", { 
+                                  character : character,
+                                  movie : movie,
+                                  serie : serie
+                                });
+                              })
+                        })
+                
+              })
+      .catch((e) => {
+        console.log(e);
+      });
+        },
+
+//        searchTwo : function(req, res){
+//            let userSearch = req.query.search;
+//            let result = [];
+//
+//            db.Characters.forEach(function(search){
+//              if((search.name).includes(userSearch)){
+//                result.push(search)
+//              }
+//           })
+//            res.render('searchTwo', {result:result})
+ //       }
 }

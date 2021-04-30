@@ -29,12 +29,12 @@ router.post ('/create', upload.any(),movieController.movieCreate);
 router.get('/edit/:id',movieController.movieEdit);
 
 // 6. /movies/ :id (PUT) Acción de edición (a donde se envía el formulario): 
-router.post('/edit/:id', upload.single('image'), movieController.save)
+router.post('/edit/:id', upload.any(), movieController.save)
 
 // 7. /movies/ :id (DELETE) Acción de borrado
 router.delete('/edit/:id', movieController.delete)
 
-// 3. /movie/ :id (GET) Detalle de un personaje particular
+// 3. /movie/ :id (GET) Detalle de una pelicula particular
 router.get('/:id', movieController.movieDetail);
 
 module.exports = router;

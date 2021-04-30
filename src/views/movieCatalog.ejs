@@ -3,7 +3,13 @@
   <%- include('partials/head') %>
   <body>
     <%- include('partials/header') %>
+    <script src="/js/movie.js"></script>
+    
+
    <button><a href="/movies/create">Agregar pelicula</a></button>
+
+    <h2 style="font-size: 24px;">PELICULAS:</h2>
+
 
    <% for(let i = 0; i < movies.length; i++) {%>
     <div class="moviesContainer">

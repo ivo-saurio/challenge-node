@@ -47,11 +47,24 @@ module.exports = {
             let detail = req.params.id;
             db.Characters.findOne({
               where: {
-                  id: req.params.id, 
+                  id: detail, 
               }
               })
-            .then(function(character){
-              res.render('editCharacter', {character : character})
+            .then(function(character){  
+              db.Movies.findAll()
+              .then(function(movie){
+                db.Series.findAll()
+                .then(function(serie){
+                  res.render('editCharacter', {
+                    movie: movie,
+                    serie: serie,
+                    character : character
+                   })
+                })
+                
+                 
+              }) 
+              
             })
     
            
@@ -59,29 +72,22 @@ module.exports = {
         
 
               save: function(req, res){
-                let errors = validationResult(req);
-                if(errors.isEmpty()) {
-                
-                  db.Characters.update({
-                    name: req.body.name,
-                    age: req.body.age,
-                    history: req.body.description,
-                    image: req.files[0].filename,
+                db.Characters.update({
+                  name: req.body.name,
+                  age: req.body.age,
+                  image: req.files[0].filename,
+                  history: req.body.history,
+                  movie_id : req.body.movie_id,
+                  serie_id: req.body.serie_id
                 },
-                {
-                  where: {
-                    id: req.params.id
+                  {
+                    where: {
+                      id: req.params.id,
+                    },
                   }
+                ).then(function(){
+                  res.redirect('/characters/' + req.params.id)
                 })
-                .then(function(){
-                  res.redirect('/characters/list')
-                })
-                .catch(function(e){
-                  console.log(e);
-              })
-            } else {
-              return res.render('createCharacter', {errors:errors.mapped()})
-            }
               },
 
               delete: function(req, res) {
@@ -92,6 +98,8 @@ module.exports = {
                 })
                 .then(function(){
                   res.redirect('/characters/list')
+                }).catch(function(e){
+                  console.log(e);
                 })
               }, 
 

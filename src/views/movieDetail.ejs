@@ -9,6 +9,12 @@
       <div>
 
         <img src="/image/movies/<%= movie.image %>" style="max-width: 300px;" alt="">
+        <a href="/movies/edit/<%= movie.id %> "><i class="fas fa-pencil-alt"></i>
+        </a>
+
+        <form action="/movies/edit/<%= movie.id %>?_method=DELETE" method="POST" >
+          <button class="btn" type="submit"><i class="fas fa-trash-alt"></i></button>
+        </form>
 
       </div>
 
@@ -17,7 +23,8 @@
         <h2> <%= movie.title %> </h2>
         <p><%= movie.history %></p>
         <p>Fecha de estreno: <%= movie.release_date %></p>
-        <p>Rating: <%= movie.rating %></p> 
+        <p>Rating: <%= movie.rating %></p>
+        <p>Genero: <%= movie.genremovie.name %></p>  
         <p>Actores: </p>
       </div>
         

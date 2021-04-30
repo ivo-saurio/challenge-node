@@ -3,7 +3,8 @@
     <h1> <a href="/">Welcome to Disney</a></h1>
 
     <nav>
-        <ul>
+
+        <ul class="headerlist" >
 
             <li>
                 <a href="/characters/list">Personajes</a>
@@ -29,6 +30,15 @@
                     <% } %> 
             </li>
 
+            
+
         </ul>
     </nav>
+
+    <div class="bar">
+        <form class="input-bar" action="users/search" method="GET">
+            <input type="text"  placeholder="Buscar aqui" name="search" >
+            <button type="submit"><i class="fab fa-searchengin"></i></i></button>
+        </form>
+    </div>
 </header>

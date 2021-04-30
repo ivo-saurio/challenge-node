@@ -6,3 +6,25 @@ body {
 a {
   color: #00B7FF;
 }
+
+.headerlist {
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.headerlist li {
+  padding-right: 10px;
+  list-style: none;
+  
+}
+
+.headerlist li a {
+  padding: 10px;
+  text-decoration: none;
+  
+}
+
+.bar {
+  margin: 10px;
+}

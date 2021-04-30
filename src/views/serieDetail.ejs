@@ -10,6 +10,13 @@
       <div>
 
         <img src="/image/series/<%= serie.image %>" style="max-width: 300px;" alt="">
+        <a href="/series/edit/<%= serie.id %> "><i class="fas fa-pencil-alt"></i>
+        </a>
+
+        <form action="/series/edit/<%= serie.id %>?_method=DELETE" method="POST" >
+          <button class="btn" type="submit"><i class="fas fa-trash-alt"></i></button>
+        </form>
+
 
       </div>
 
@@ -18,8 +25,10 @@
         <h2> <%= serie.title %> </h2>
         <p><%= serie.history %></p>
         <p>Fecha de estreno: <%= serie.release_date %></p>
-        <p>Rating: <%= serie.rating %></p> 
+        <p>Rating: <%= serie.rating %></p>
+        <p>Genero: <%= serie.seriesgenre.name %></p>   
         <p>Actores: </p>
+
       </div>
         
 

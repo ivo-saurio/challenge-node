@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <%- include('partials/head') %>
+  <body>
+    <%- include('partials/header') %>
+    
+    <% if(movie.length <= 0) { %>
+
+      <h3>No encontramos peliculas</h3>
+
+      <%  }  else{ %>
+
+        <h3>Peliculas</h3>
+
+   <% for(let i = 0; i < movie.length; i++) {%>
+    <div class="movieContainer">
+      
+
+      <div>
+
+        <img src="/image/movies/<%= movie[i].image %>" style="max-width: 300px;" alt="">
+
+      </div>
+
+      <div>
+
+        <h2> <%= movie[i].title %> </h2>
+
+      </div>
+        
+      <button> <a href="/movies/<%= movie[i].id %> ">Detalle</a> </button>
+
+    </div>
+    <% } %>
+
+    <%  } %>
+
+    <% if(serie.length <= 0) { %>
+
+      <h3>No encontramos la series</h3>
+
+      <%  }  else{ %>
+
+        <h3>Series:</h3>
+
+    <% for(let i = 0; i < serie.length; i++) {%>
+      <div class="serieContainer">
+  
+        <div>
+  
+          <img src="/image/series/<%= serie[i].image %>" style="max-width: 300px;" alt="">
+  
+        </div>
+  
+        <div>
+  
+          <h2> <%= serie[i].title %> </h2>
+  
+        </div>
+          
+        <button> <a href="/series/<%= serie[i].id %> ">Detalle</a> </button>
+  
+      </div>
+      <% } %>
+
+      <%  } %>
+
+      <% if(character.length <= 0) { %>
+
+        <h3>No encontramos el personajes</h3>
+  
+        <%  }  else{ %>
+
+          <h3>Personajes:</h3>
+
+      <% for(let i = 0; i < character.length; i++) {%>
+        <div class="characterContainer">
+    
+          <div>
+    
+            <img src="/image/characters/<%= character[i].image %>" style="max-width: 300px;" alt="">
+    
+          </div>
+    
+          <div>
+    
+            <h2> <%= character[i].name %> </h2>
+    
+          </div>
+            
+          <button> <a href="/characters/<%= character[i].id %> ">Detalle</a> </button>
+    
+        </div>
+        <% } %>
+
+        <%  } %>
+  </body>
+</html>

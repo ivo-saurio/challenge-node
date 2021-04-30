@@ -8,35 +8,64 @@
 
       <h2> Editar Personaje </h2>
 
-      <form action="" id="editcharacter" method="POST" enctype="multipart/form-data" >
+      <form action="/characters/edit/<%= character.id %>" method="POST" enctype="multipart/form-data" >
       
         <div class="name">
 
           <label for="name">Editar Nombre</label>
-          <input type="name" placeholder=<%= character.name %>  name="name" id="name"> 
+          <input type="text" value= "<%= character.name %>"  name="name" id="name"> 
           
       </div>
 
       <div class="age">
 
           <label for="age">Editar Edad</label>
-          <input type="number" placeholder=<%= character.age %> age="age" id="age"> 
+          <input type="number" value=<%= character.age %> name="age" id="age"> 
           
       </div>
 
       <div class="image">
 
           <label for="image">Editar Imagen</label>
-          <input type="file" value="<%= character.image %>" image="image" id="image"> 
+          <input type="file" value="<%= character.image %>" name="image" id="image"> 
           
       </div>
 
       <div class="history">
 
-          <label for="image">Editar sinopsis</label>
+          <label for="history">Editar sinopsis</label>
           <textarea name="history" id="history" cols="30" rows="5" maxlength="500" minlength="20"  ><%= character.history %></textarea> 
           
       </div>
+
+      <div class="movies">
+
+        <select name="movies" id="movies">
+            <option selected>-- Seleccione una pelicula relacionada --</option>
+            <% for(let i=0; i < movie.length; i++) { %>
+                <option> <%=movie[i].title%> </option>
+            <% } %> 
+        </select>
+
+        <select name="movies" id="movies">
+
+        <option selected>-- Seleccione otra pelicula relacionada --</option>
+            <% for(let i=0; i < movie.length; i++) { %>
+                <option> <%=movie[i].title%> </option>
+            <% } %>
+          </select>    
+
+        <select name="Series" id="Series">
+          <option selected>-- Seleccione una serie relacionada --</option>
+          <% for(let i=0; i < serie.length; i++) { %>
+              <option> <%=serie[i].title%> </option>
+          <% } %> 
+
+      </select>
+
+
+
+    </div>
 
 
   </div>
@@ -44,16 +73,10 @@
                 
        <button class="btn" type="submit">Editar</button>
        
+       </div>
+
           </form>
-
-          <form action="" method="POST">
-
-              <button class="btn" type="submit">Eliminar</button>
-
-      </div>
       
-      
-      </form>
 
     </div>
 

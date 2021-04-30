@@ -8,7 +8,10 @@ module.exports = {
     all: function(req, res){
         db.Movies.findAll()
         .then(function(movies){
-            return res.render('movieCatalog', {movies:movies})
+          db.Genres.findAll()
+          .then(function(genres){
+            return res.render('movieCatalog', {movies:movies, genres:genres})
+          })
         })
     },
 
@@ -53,13 +56,12 @@ module.exports = {
               nested:true
               }
                 })
-                .then(function(movieEdited){
-                  db.Movies.findAll()
-                  .then(function(movies){
-                
+                .then(function(movie){
+                  db.Genres.findAll()
+                  .then(function(genres){
                   res.render('editMovie', {
-                    movieEdited: movieEdited,
-                    movies: movies
+                    movie: movie,
+                    genres: genres
                   })
                 })
               })
@@ -70,31 +72,22 @@ module.exports = {
               },
 
               save: function(req, res){
-                let errors = validationResult(req);
-                if(errors.isEmpty()) {
-                
-                  db.Movies.update({
-                    title: req.body.title,
-                    image: req.files[0].filename,
-                    rating: req.body.rating,
-                    release_date: req.body.release_date,
-                    history: req.body.history,
-                    genre_id: req.body.genre_id
+                db.Movies.update({
+                  title: req.body.title,
+                  image: req.files[0].filename,
+                  rating: req.body.rating,
+                  release_date: req.body.release_date,
+                  history: req.body.history,
+                  genre_id: req.body.genre_id
                 },
-                {
-                  where: {
-                    id: req.params.id
+                  {
+                    where: {
+                      id: req.params.id,
+                    },
                   }
+                ).then(function(){
+                  res.redirect('/movies/' + req.params.id)
                 })
-                .then(function(){
-                  res.redirect('/movies/list')
-                })
-                .catch(function(e){
-                  console.log(e);
-              })
-            } else {
-              return res.render('createMovie', {errors:errors.mapped()})
-            }
               },
 
               delete: function(req, res) {
@@ -111,8 +104,11 @@ module.exports = {
               movieDetail : function(req, res) {
                 let detail = req.params.id;
                 db.Movies.findOne({
+                  include: [
+                    {model: db.Genres, as: 'genremovie'}
+                      ],
                   where: {
-                      id: req.params.id, 
+                      id: detail, 
                   }
                   })
                 .then(function(movie){

@@ -8,42 +8,69 @@
 
       <h2> Editar Pelicula </h2>
 
-      <form action="" id="editcharacter" method="POST" enctype="multipart/form-data" >
+      <form action="/movies/edit/<%= movie.id %>" method="POST" enctype="multipart/form-data" >
       
         <div class="title">
 
             <label for="title">Editar Titulo</label>
-            <input type="title" placeholder="Titulo de la Pelicula" title="title" id="title"> 
+            <input type="title" name="title" id="title" value="<%= movie.title %>" >
             
         </div>
 
         <div class="image">
 
             <label for="image">Editar Imagen</label>
-            <input type="image" placeholder="Imagen de la pelicula" image="image" id="image"> 
+            <input type="file" value="<%= movie.image %>" name="image" id="image"> 
             
         </div>
 
         <div class="rating">
 
             <label for="rating">Editar ratingn</label>
-            <input type="rating" placeholder="ratingn de la pelicula" rating="rating" id="rating"> 
+            <input type="rating"  id="rating" value="<%= movie.rating %>" > 
             
         </div>
 
+        <div class="release_date">
+
+          <label for="release_date">Fecha de estreno</label>
+          <input type="date" value="<%= movie.release_date %>" name="release_date" id="release_date"> 
+          
+      </div>
+
+      <div class="history">
+
+        <label for="history">Editar sinopsis</label>
+        <textarea name="history" id="history" cols="30" rows="5" maxlength="500" minlength="20"><%= movie.history %></textarea> 
+        
+    </div>
+
+        <div class="genre">
+
+          <select name="genre_id" id="genre_id">
+              <option selected>-- Seleccione un genero --</option>
+              <% for(let i=0; i < genres.length; i++) { %>
+                  <option value="<%=genres[i].id%>"><%=genres[i].name%></option>
+              <% } %> 
+
+          </select>
+
+          </div>
+
+          <div class="buttonEdit">
+                
+            <button class="btn" type="submit">Editar</button>
+            
+            </div>
+     
+               </form>
+          
+      </div>
+
+
+
 
   </div>
-      <div class="buttonEdit">
-                
-       <button class="btn" type="submit">Editar</button>
-       
-          </form>
-
-          <form action="" method="POST">
-
-              <button class="btn" type="submit">Eliminar</button>
-
-      </div>
       
       
       </form>
